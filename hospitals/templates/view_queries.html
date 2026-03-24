@@ -1,0 +1,51 @@
+{% extends 'admin_nav.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="table-card">
+                <div class="mb-4 pb-2" style="border-bottom: 2px solid var(--primary-color)">
+                    <h4 class="m-0 font-weight-bold">Query Details</h4>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th class="bg-light" style="width: 20%">Name</th>
+                            <td style="width: 30%">{{contact.name}}</td>
+                            <th class="bg-light" style="width: 20%">Contact No.</th>
+                            <td style="width: 30%">{{contact.contact}}</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light">Email ID</th>
+                            <td>{{contact.email}}</td>
+                            <th class="bg-light">Subject</th>
+                            <td>{{contact.subject}}</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light">Enquiry Message</th>
+                            <td colspan="3">{{contact.message}}</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light">Enquiry Date</th>
+                            <td colspan="3">{{contact.msgdate}}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="text-right mt-4">
+                    <a href="{% url 'unread_queries' %}" class="btn btn-outline-secondary btn-sm px-4 mr-2">
+                        <i class="fas fa-arrow-left"></i> Back to Unread
+                    </a>
+                    <a href="{% url 'read_queries' %}" class="btn btn-outline-secondary btn-sm px-4">
+                        <i class="fas fa-check-double"></i> Back to Read
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

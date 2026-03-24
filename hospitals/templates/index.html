@@ -1,0 +1,73 @@
+{% extends 'navigation.html' %}
+{% load static %}
+
+{% block body %}
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+        <h1 class="hero-title">Welcome to Medi-Cloud,<br>Our Cloud Priority</h1>
+        <p class="hero-subtitle">
+            Experience the next generation of healthcare management. Secure, efficient, and patient-centric cloud
+            solutions for modern hospitals.
+        </p>
+        <div class="hero-btns">
+            <a href="{% url 'about' %}" class="btn btn-primary-modern">Discover More</a>
+            <a href="{% url 'contact' %}" class="btn btn-outline-modern">Get In Touch</a>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="display-4 font-weight-bold">Why Choose Medi-Cloud?</h2>
+                <p class="text-muted">We provide a comprehensive suite of tools designed to streamline hospital
+                    operations and improve patient care.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Feature 1 -->
+            <div class="col-md-4 mb-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3 class="feature-title">Expert Doctors</h3>
+                    <p class="feature-description">Access a network of highly qualified specialists and general
+                        practitioners dedicated to your well-being.</p>
+                </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="col-md-4 mb-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-hospital"></i>
+                    </div>
+                    <h3 class="feature-title">Modern Facilities</h3>
+                    <p class="feature-description">State-of-the-art medical equipment and comfortable environments for
+                        optimal recovery and treatment.</p>
+                </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="col-md-4 mb-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="feature-title">24/7 Support</h3>
+                    <p class="feature-description">Round-the-clock medical assistance and emergency services to ensure
+                        you're never alone in your health journey.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

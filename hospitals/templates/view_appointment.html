@@ -1,0 +1,50 @@
+{% extends 'admin_nav.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="table-card">
+                <div class="d-flex justify-content-between align-items-center mb-4 pb-2" style="border-bottom: 2px solid var(--primary-color)">
+                    <h4 class="m-0 font-weight-bold">View Appointments</h4>
+                    <a href="{% url 'add_appointment' %}" class="btn btn-primary-modern btn-sm">
+                        <i class="fas fa-plus"></i> Add Appointment
+                    </a>
+                </div>
+
+                <div class="table-responsive">
+                    <table id="example" class="table table-hover" style="width:100%">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Doctor Name</th>
+                                <th>Patient Name</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for i in appointment %}
+                            <tr>
+                                <td>{{i.doctor}}</td>
+                                <td>{{i.patient}}</td>
+                                <td>{{i.date1}}</td>
+                                <td>{{i.time1}}</td>
+                                <td>
+                                    <a href="{% url 'delete_appointment' i.id %}" onclick="return confirm('Are you ready to delete this record?')" class="btn btn-outline-danger btn-sm">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

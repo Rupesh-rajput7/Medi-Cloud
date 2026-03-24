@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Medi-Cloud Admin</title>
+
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    
+    <!-- Google Fonts: Outfit -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap">
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Custom Admin Styles -->
+    <link rel="stylesheet" href="{% static 'css/admin-style.css' %}">
+
+    <!-- DataTables CDN -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.5/css/dataTables.dataTables.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.2.5/css/buttons.dataTables.css">
+
+    <style>
+        /* Tooltip style for shrunk sidebar - handled by CSS but adding base for JS if needed */
+        .sidebar-menu li a span {
+            transition: opacity 0.3s;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <nav class="sidebar-modern" id="sidebar">
+        <div class="sidebar-header">
+            <img src="{% static 'images/admin.png' %}" alt="Admin Photo">
+            <h5>Admin Dashboard</h5>
+        </div>
+        
+        <ul class="sidebar-menu">
+            <li class="{% if request.resolver_match.url_name == 'admin_home' %}active{% endif %}">
+                <a href="{% url 'admin_home' %}">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <!-- Doctor Dropdown -->
+            <li>
+                <a href="#doctorSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="fas fa-user-md"></i>
+                    <span>Doctor</span>
+                </a>
+                <ul class="collapse list-unstyled" id="doctorSubmenu">
+                    <li><a href="{% url 'add_doctor' %}">Add Doctor</a></li>
+                    <li><a href="{% url 'view_doctor' %}">View Doctor</a></li>
+                </ul>
+            </li>
+
+            <!-- Patient Dropdown -->
+            <li>
+                <a href="#patientSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="fas fa-user-injured"></i>
+                    <span>Patient</span>
+                </a>
+                <ul class="collapse list-unstyled" id="patientSubmenu">
+                    <li><a href="{% url 'add_patient' %}">Add Patient</a></li>
+                    <li><a href="{% url 'view_patient' %}">View Patient</a></li>
+                </ul>
+            </li>
+
+            <!-- Appointment Dropdown -->
+            <li>
+                <a href="#appointmentSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Appointment</span>
+                </a>
+                <ul class="collapse list-unstyled" id="appointmentSubmenu">
+                    <li><a href="{% url 'add_appointment' %}">Add Appointment</a></li>
+                    <li><a href="{% url 'view_appointment' %}">View Appointment</a></li>
+                </ul>
+            </li>
+
+            <!-- Queries Dropdown -->
+            <li>
+                <a href="#querySubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="fas fa-question-circle"></i>
+                    <span>View Queries</span>
+                </a>
+                <ul class="collapse list-unstyled" id="querySubmenu">
+                    <li><a href="{% url 'unread_queries' %}">Unread Queries</a></li>
+                    <li><a href="{% url 'read_queries' %}">Read Queries</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Content -->
+    <main id="main">
+        <!-- Top Navbar -->
+        <header class="top-navbar">
+            <button class="btn btn-link text-dark d-lg-none" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="#" class="navbar-brand">
+                <i class="fas fa-plus-square"></i> Medi-Cloud
+            </a>
+            <a href="{% url 'logout' %}" class="logout-btn">
+                <i class="fas fa-power-off"></i> <span class="d-none d-sm-inline">Logout</span>
+            </a>
+        </header>
+
+        <!-- Page Content -->
+        <div class="mt-4">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
+    <!-- DataTables -->
+    <script src="https://cdn.datatables.net/2.3.5/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.5/js/dataTables.buttons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.5/js/buttons.html5.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Sidebar Toggle for Mobile
+            function toggleSidebar() {
+                $('#sidebar').toggleClass('active');
+                $('#sidebarOverlay').toggleClass('active');
+                $('body').toggleClass('overflow-hidden');
+            }
+
+            $('#sidebarToggle, #sidebarOverlay').on('click', function () {
+                toggleSidebar();
+            });
+
+            // Initialize DataTable if #example exists
+            if ($('#example').length) {
+                new DataTable('#example', {
+                    layout: {
+                        topStart: {
+                            buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+                        },
+                        topEnd: 'search'
+                    },
+                    columnDefs: [
+                        { targets: '_all', className: "dt-center" }
+                    ],
+                    responsive: true
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
+>

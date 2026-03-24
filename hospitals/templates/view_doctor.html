@@ -1,0 +1,57 @@
+{% extends 'admin_nav.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="table-card">
+                <div class="d-flex justify-content-between align-items-center mb-4 pb-2" style="border-bottom: 2px solid var(--primary-color)">
+                    <h4 class="m-0 font-weight-bold">View Doctors</h4>
+                    <a href="{% url 'add_doctor' %}" class="btn btn-primary-modern btn-sm">
+                        <i class="fas fa-plus"></i> Add New Doctor
+                    </a>
+                </div>
+
+                <div class="table-responsive">
+                    <table id="example" class="table table-hover" style="width:100%">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>ID</th>
+                                <th>Doctor Name</th>
+                                <th>Contact</th>
+                                <th>Specialization</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for i in doc %}
+                            <tr>
+                                <td>{{i.id}}</td>
+                                <td>{{i.name}}</td>
+                                <td>{{i.mobile}}</td>
+                                <td>{{i.special}}</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a href="{% url 'edit_doctor' i.id %}" class="btn btn-outline-primary btn-sm mx-1">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </a>
+                                        <a href="{% url 'delete_doctor' i.id %}"
+                                            onclick="return confirm('Are you ready to delete this record?')"
+                                            class="btn btn-outline-danger btn-sm mx-1">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

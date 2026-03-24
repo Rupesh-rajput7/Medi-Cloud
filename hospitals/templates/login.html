@@ -1,0 +1,109 @@
+{% extends 'navigation.html' %}
+{% load static %}
+{% block body %}
+
+<style>
+
+body{
+  background-color:#ffffff;
+  font-family:'Roboto', sans-serif;
+}
+
+/* Login Title */
+.note{
+  text-align:center;
+  background:linear-gradient(to right,#7318e9,#9709de);
+  color:white;
+  border-radius:10px;
+  font-weight:bold;
+  font-size:28px;
+  padding:15px;
+}
+
+/* Form box */
+.form-content{
+  padding:30px;
+  border-radius:10px;
+  background:white;
+  border:1px solid #ddd;
+  box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+/* Input fields */
+.form-control{
+  border-radius:25px;
+  text-align:center;
+  background:#f2f2f2;
+}
+
+/* Login Button */
+.btnSubmit{
+  border:none;
+  border-radius:25px;
+  padding:10px;
+  width:100%;
+  background:#0062cc;
+  color:white;
+  font-weight:bold;
+}
+
+.btnSubmit:hover{
+  background:#004fa3;
+}
+
+/* Center login box */
+.login-box{
+  margin-top:80px;
+}
+
+</style>
+
+{% if error == "no" %}
+<script>
+alert('Logged In Successfully');
+window.location = ('{% url "admin_home" %}');
+</script>
+{% endif %}
+
+{% if error == "yes" %}
+<script>
+alert('Something went wrong, Try Again');
+</script>
+{% endif %}
+
+<div class="container login-box">
+<div class="row justify-content-center">
+
+<div class="col-lg-4 col-md-6 col-sm-10">
+
+<form method="post">
+{% csrf_token %}
+
+<div class="note">
+<i class="fas fa-user-shield"></i> Admin Login
+</div>
+
+<div class="form-content">
+
+<div class="form-group">
+<input type="text" name="uname" class="form-control py-3" placeholder="Enter User Name" required>
+</div>
+
+<div class="form-group">
+<input type="password" name="pwd" class="form-control py-3" placeholder="Enter Password" required>
+</div>
+
+<button type="submit" class="btnSubmit">
+<i class="fas fa-sign-in-alt"></i> Login
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+</div>
+
+{% endblock %}

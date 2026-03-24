@@ -1,0 +1,68 @@
+{% extends 'admin_nav.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2 class="font-weight-bold">Dashboard Overview</h2>
+            <p class="text-muted">Welcome back, Admin! Here's what's happening today.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Doctors Card -->
+        <div class="col-md-4 mb-4">
+            <div class="dashboard-card">
+                <div class="card-info">
+                    <h3>{{dc}}</h3>
+                    <p>Total Doctors</p>
+                    <a href="{% url 'view_doctor' %}" class="btn btn-sm btn-link p-0 mt-2 font-weight-bold" style="color: var(--primary-color)">View All →</a>
+                </div>
+                <div class="card-icon bg-doctors">
+                    <i class="fas fa-user-md"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Patients Card -->
+        <div class="col-md-4 mb-4">
+            <div class="dashboard-card">
+                <div class="card-info">
+                    <h3>{{pc}}</h3>
+                    <p>Total Patients</p>
+                    <a href="{% url 'view_patient' %}" class="btn btn-sm btn-link p-0 mt-2 font-weight-bold" style="color: #10b981">View All →</a>
+                </div>
+                <div class="card-icon bg-patients">
+                    <i class="fas fa-user-injured"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Appointments Card -->
+        <div class="col-md-4 mb-4">
+            <div class="dashboard-card">
+                <div class="card-info">
+                    <h3>{{ac}}</h3>
+                    <p>Total Appointments</p>
+                    <a href="{% url 'view_appointment' %}" class="btn btn-sm btn-link p-0 mt-2 font-weight-bold" style="color: #f59e0b">View All →</a>
+                </div>
+                <div class="card-icon bg-appointments">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional: Add a welcoming background or image -->
+    <div class="row mt-4">
+        <div class="col-12 text-center">
+            <div class="table-card p-0 overflow-hidden" style="border-radius: 24px;">
+                <img src="{% static 'images/background.jpg' %}" style="width: 100%; max-height: 400px; object-fit: cover;" alt="Dashboard Background">
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
